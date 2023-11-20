@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
     }
     const user = await User.findOne({ name });
     if (!user) {
-      return res.send({ message: "Invalid user! Please signup" });
+      return res.status(401).send({ message: "Invalid user! Please signup" });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
