@@ -1,5 +1,7 @@
 * {
   margin: 0;
+  position: relative;
+  z-index: 3;
 }
 
 .navbar {
