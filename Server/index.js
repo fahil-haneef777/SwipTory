@@ -6,6 +6,9 @@ const { default: mongoose } = require("mongoose");
 const app = express();
 const User = require("./models/users");
 const authRoutes = require("./Routes/auth");
+const Slide = require("./models/Slide");
+const Post = require("./models/Post");
+const PostRoutes = require("./Routes/Post");
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -15,6 +18,7 @@ app.get("/", (req, res) => {
   res.send({ status: "success" });
 });
 app.use(authRoutes);
+app.use(PostRoutes);
 
 app.listen(process.env.PORT, () => {
   mongoose

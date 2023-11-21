@@ -8,8 +8,9 @@ const requireAuth = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_PASSWORD);
-    console.log(decoded);
-    req.user = decoded.user;
+    console.log(decoded.userid);
+    req.user = decoded.userid;
+    next();
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: err });

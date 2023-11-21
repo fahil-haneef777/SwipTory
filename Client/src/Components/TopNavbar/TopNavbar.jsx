@@ -8,11 +8,12 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Logout from "../logout/Logout";
 import AllContext from "../../Context/Context";
+import Addjob from "../Addjob/Addjob";
 function TopNavbar() {
   const [showlogin, setshowlogin] = useState(false);
   const [showregister, setshowregister] = useState(false);
   const [showlogout, setshowlogout] = useState(false);
-
+  const [showaddjob, setshowaddjob] = useState(false);
   const { loggedin, setloggedin } = useContext(AllContext);
 
   const onmenuclick = () => {
@@ -25,6 +26,9 @@ function TopNavbar() {
 
   const onclickregister = () => {
     setshowregister(!showregister);
+  };
+  const onclickaddjob = () => {
+    setshowaddjob(!showaddjob);
   };
 
   return (
@@ -47,7 +51,9 @@ function TopNavbar() {
               <img src={bookmarks} alt="bookmark" />
               <p>Bookmarks</p>
             </button>
-            <button className={style.Addstorybutton}>Add Story</button>
+            <button className={style.Addstorybutton} onClick={onclickaddjob}>
+              Add Story
+            </button>
             <img src={profilephoto} alt="profile pic" />
             <img
               className={style.sidemenu}
@@ -61,6 +67,7 @@ function TopNavbar() {
       {showlogin ? <Login onclicklogin={onclicklogin} /> : ""}
       {showregister ? <Register onclickregister={onclickregister} /> : ""}
       {showlogout ? <Logout onmenuclick={onmenuclick} /> : ""}
+      {showaddjob ? <Addjob onclickaddjob={onclickaddjob} /> : ""}
     </div>
   );
 }
