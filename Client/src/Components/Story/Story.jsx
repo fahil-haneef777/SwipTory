@@ -98,6 +98,7 @@ function Story() {
       }, []);
       console.log(allUserPostedStory);
       setUserStory(UserPostedStory);
+      console.log(UserPostedStory);
     }
   }, [active, story]);
 
@@ -136,16 +137,29 @@ function Story() {
                   <h2 className={style.YourStory}>Your Stories</h2>{" "}
                   <div className={style.TopStoriesFood}>
                     {UserStory.length > 0 &&
+                      Array.isArray(UserStory) &&
                       UserStory.slice(0, allmax.User).map((slide, index) => (
                         <div key={index}>
                           <div className={style.story}>
-                            <img
-                              src={slide.slides[0].imageUrl}
-                              alt="storyimage"
-                            />
+                            {slide.slides &&
+                              slide.slides.length > 0 &&
+                              slide.slides[0].imageUrl && (
+                                <img
+                                  src={slide.slides[0].imageUrl}
+                                  alt="storyimage"
+                                />
+                              )}
                             <div className={style.storyheading}>
-                              <h2>{slide.slides[0].heading}</h2>
-                              <h4>{slide.slides[0].description} </h4>
+                              {slide.slides &&
+                                slide.slides.length > 0 &&
+                                slide.slides[0].heading && (
+                                  <h2>{slide.slides[0].heading}</h2>
+                                )}
+                              {slide.slides &&
+                                slide.slides.length > 0 &&
+                                slide.slides[0].description && (
+                                  <h4>{slide.slides[0].description} </h4>
+                                )}
                             </div>
                           </div>
                           <button
