@@ -17,7 +17,10 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, password: hashedPassword });
     await user.save();
-    const token = await jwt.sign({userid:user._id}, process.env.JWT_PASSWORD);
+    const token = await jwt.sign(
+      { userid: user._id },
+      process.env.JWT_PASSWORD
+    );
     res.send({
       token: token,
       name: user.name,
@@ -42,9 +45,19 @@ router.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).send({ message: "Invalid password" });
     }
-    console.log(user._id.toJSON())
-    const token = await jwt.sign({userid:user._id}, process.env.JWT_PASSWORD);
-    res.status(200).send({token:token,username:user.name,message:"loggedin successfully"})
+    console.log(user._id.toJSON());
+    const token = await jwt.sign(
+      { userid: user._id },
+      process.env.JWT_PASSWORD
+    );
+    res
+      .status(200)
+      .send({
+        token: token,
+        username: user.name,
+        userid: user._id,
+        message: "loggedin successfully",
+      });
   } catch (err) {
     console.log(err);
   }

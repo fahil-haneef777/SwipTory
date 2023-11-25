@@ -1,5 +1,6 @@
 body.active-model {
     overflow-y: hidden;
+
   }
   
   .modal,
@@ -26,6 +27,7 @@ body.active-model {
     padding: 15px;
     border-radius: 10px;
     width: 30vw;
+    z-index: 1;
   }
   .modelinnercontent {
     display: flex;

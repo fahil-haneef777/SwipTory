@@ -6,6 +6,7 @@
   right: 0;
   bottom: 0;
   position: fixed;
+  z-index: 1;
 }
 
 .overlay {
@@ -21,6 +22,7 @@
   padding: 4vh;
   border-radius: 10px;
   width: auto;
+  z-index: 2;
 }
 .slidecontainer {
   display: flex;

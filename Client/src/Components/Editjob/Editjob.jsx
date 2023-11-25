@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
-import style from "./Addjob.module.css";
+import React, { useEffect, useState, useContext } from "react";
+import style from "./Editjob.module.css";
 import closeicon from "../../assets/closeicon.png";
 import axios from "axios";
+import AllContext from "../../Context/Context";
+import { set } from "mongoose";
 
-function Addjob({ onclickaddjob }) {
+function Editjob({ onclickedit }) {
+  const { postid } = useContext(AllContext);
   const [slides, setslides] = useState([
+    { heading: "", description: "", imageUrl: "", category: "" },
+    { heading: "", description: "", imageUrl: "", category: "" },
+    { heading: "", description: "", imageUrl: "", category: "" },
+  ]);
+  const [posts, setposts] = useState([
     { heading: "", description: "", imageUrl: "", category: "" },
     { heading: "", description: "", imageUrl: "", category: "" },
     { heading: "", description: "", imageUrl: "", category: "" },
@@ -33,8 +41,8 @@ function Addjob({ onclickaddjob }) {
     seterror("");
 
     axios
-      .post(
-        "http://localhost:3000/add",
+      .put(
+        `http://localhost:3000/edit/${postid}`,
         { slides: slides },
         {
           headers: {
@@ -44,6 +52,8 @@ function Addjob({ onclickaddjob }) {
       )
       .then((res) => {
         console.log(res.data);
+        onclickedit();
+        window.location.reload()
       })
       .catch((err) => {
         console.log(err);
@@ -91,9 +101,20 @@ function Addjob({ onclickaddjob }) {
     }
   }, [slides.length]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/post/${postid}`)
+      .then((res) => {
+        console.log(res.data.post.slides);
+        setslides(res.data.post.slides);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
-      <div className={style.overlay} onClick={onclickaddjob}></div>
+      <div className={style.overlay} onClick={onclickedit}></div>
       <div className={style.modelcontent}>
         <div className={style.slidecontainer}>
           {slides.map((slide, index) => {
@@ -133,7 +154,7 @@ function Addjob({ onclickaddjob }) {
             className={style.boxcloseicon}
             alt="close icon"
             src={closeicon}
-            onClick={onclickaddjob}
+            onClick={onclickedit}
           />
         </div>
 
@@ -215,7 +236,7 @@ function Addjob({ onclickaddjob }) {
             Next
           </button>
           <button className={style.postbutton} onClick={handlePostData}>
-            Post
+            Update
           </button>
           <p className={style.errormessage}>{error}</p>
         </div>
@@ -224,4 +245,4 @@ function Addjob({ onclickaddjob }) {
   );
 }
 
-export default Addjob;
+export default Editjob;

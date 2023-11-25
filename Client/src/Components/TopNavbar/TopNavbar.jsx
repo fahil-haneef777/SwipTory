@@ -66,7 +66,7 @@ function TopNavbar() {
       </div>
       {showlogin ? <Login onclicklogin={onclicklogin} /> : ""}
       {showregister ? <Register onclickregister={onclickregister} /> : ""}
-      {showlogout ? <Logout onmenuclick={onmenuclick} /> : ""}
+     {showlogout?<Logout onmenuclick={onmenuclick}/>:''}
       {showaddjob ? <Addjob onclickaddjob={onclickaddjob} /> : ""}
     </div>
   );

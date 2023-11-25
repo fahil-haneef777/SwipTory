@@ -1,6 +1,5 @@
 
 
-.modal,
 .overlay {
   width: 100vw;
   height: 100vh;
@@ -9,6 +8,7 @@
   right: 0;
   bottom: 0;
   position: fixed;
+  z-index: 1;
 }
 
 .overlay {
@@ -24,6 +24,7 @@
   padding: 15px;
   border-radius: 10px;
   width: 30vw;
+  z-index: 2;
 }
 .modelinnercontent {
   display: flex;
@@ -51,7 +52,7 @@
   height: 2vh;
   position: relative;
   right: 2.5vh;
-  top: 1.5vh;
+  top: 1.1vh;
   cursor: pointer;
   transition: 0.2s;
 }

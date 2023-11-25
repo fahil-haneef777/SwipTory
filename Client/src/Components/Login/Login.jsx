@@ -33,6 +33,7 @@ function Login({ onclicklogin }) {
 
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("name", res.data.username);
+        localStorage.setItem("userid", res.data.userid);
       })
       .catch((err) => {
         seterror(err.response.data.message);

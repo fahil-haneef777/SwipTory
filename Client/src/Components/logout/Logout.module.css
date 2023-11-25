@@ -2,6 +2,7 @@
   position: absolute;
   right: 0vh;
   top: 4.5vw;
+  z-index: 5;
 }
 
 .overlay {

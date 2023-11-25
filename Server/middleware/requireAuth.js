@@ -10,7 +10,7 @@ const requireAuth = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_PASSWORD);
     console.log(decoded.userid);
     req.user = decoded.userid;
-    next();
+    next()
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: err });

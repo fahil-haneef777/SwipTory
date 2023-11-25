@@ -1,12 +1,10 @@
 * {
   margin: 0;
-  position: relative;
-  z-index: 3;
 }
 
 .navbar {
   height: 10vh;
-  width: 100vw;
+  width: auto;
   background-color: white;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -26,7 +24,7 @@
   display: flex;
   gap: 2vh;
   position: relative;
-  left: 80vw;
+  left: 78vw;
   bottom: 2vh;
   width: min-content;
 }

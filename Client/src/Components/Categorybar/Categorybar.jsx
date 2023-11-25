@@ -6,13 +6,15 @@ import Movies from "../../assets/Movies.jpg";
 import Education from "../../assets/Education.jpg";
 import Travel from "../../assets/Travel.jpg";
 import All from "../../assets/All.jpg";
-
+import AllContext from "../../Context/Context";
+import { useContext } from "react";
 function Categorybar() {
-  const [active, setactive] = useState("");
-
+  const { active, setactive } = useContext(AllContext);
   const handleCategoryClick = (category) => {
     setactive(category);
   };
+
+
   return (
     <div className={style.Categorybar}>
       <div
@@ -37,9 +39,9 @@ function Categorybar() {
 
       <div
         className={`${style.categorycontainer} ${
-          active === "Health" ? style.active : ""
+          active === "Health & Fitness" ? style.active : ""
         }`}
-        onClick={() => handleCategoryClick("Health")}
+        onClick={() => handleCategoryClick("Health & Fitness")}
       >
         <h2 className={style.heading}>Health</h2>
         <img src={Health} alt="all" />
