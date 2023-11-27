@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Home from "./Pages/Home/Home";
+import Bookmark from "./Pages/Bookmark/Bookmark";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "./Context/Context";
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Home />} />
+          <Route path="/bookmark" element={<Bookmark />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -15,15 +15,15 @@ router.post("/register", async (req, res) => {
       return res.status(409).send({ message: "Username already exist" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, password: hashedPassword });
+    const user = await new User({ name, password: hashedPassword });
     await user.save();
-    const token = await jwt.sign(
-      { userid: user._id },
-      process.env.JWT_PASSWORD
-    );
+    const payload = { userid: user._id };
+    console.log(payload);
+    const token = jwt.sign(payload, process.env.JWT_PASSWORD);
     res.send({
       token: token,
       name: user.name,
+      userid: user._id,
       message: "User registered Successfully",
     });
   } catch (error) {
@@ -50,14 +50,12 @@ router.post("/login", async (req, res) => {
       { userid: user._id },
       process.env.JWT_PASSWORD
     );
-    res
-      .status(200)
-      .send({
-        token: token,
-        username: user.name,
-        userid: user._id,
-        message: "loggedin successfully",
-      });
+    res.status(200).send({
+      token: token,
+      username: user.name,
+      userid: user._id,
+      message: "loggedin successfully",
+    });
   } catch (err) {
     console.log(err);
   }

@@ -9,19 +9,22 @@ import Register from "../Register/Register";
 import Logout from "../logout/Logout";
 import AllContext from "../../Context/Context";
 import Addjob from "../Addjob/Addjob";
+import { useNavigate } from "react-router-dom";
 function TopNavbar() {
-  const [showlogin, setshowlogin] = useState(false);
   const [showregister, setshowregister] = useState(false);
   const [showlogout, setshowlogout] = useState(false);
   const [showaddjob, setshowaddjob] = useState(false);
-  const { loggedin, setloggedin } = useContext(AllContext);
+  const navigate = useNavigate();
+  const {
+    loggedin,
+    setloggedin,
+    showlogin,
+    setshowlogin,
+    onclicklogin,
+  } = useContext(AllContext);
 
   const onmenuclick = () => {
     setshowlogout(!showlogout);
-  };
-
-  const onclicklogin = () => {
-    setshowlogin(!showlogin);
   };
 
   const onclickregister = () => {
@@ -33,7 +36,9 @@ function TopNavbar() {
 
   return (
     <div className={style.navbar}>
-      <h2 className={style.heading}>SwipTory</h2>
+      <h2 className={style.heading} onClick={() => navigate("/")}>
+        SwipTory
+      </h2>
 
       <div>
         {!loggedin ? (
@@ -47,7 +52,7 @@ function TopNavbar() {
           </div>
         ) : (
           <div className={style.afterlogginbutton}>
-            <button className={style.Bookmarkbutton}>
+            <button className={style.Bookmarkbutton} onClick={()=>navigate('bookmark')}>
               <img src={bookmarks} alt="bookmark" />
               <p>Bookmarks</p>
             </button>
@@ -64,9 +69,9 @@ function TopNavbar() {
           </div>
         )}
       </div>
-      {showlogin ? <Login onclicklogin={onclicklogin} /> : ""}
+      {showlogin ? <Login /> : ""}
       {showregister ? <Register onclickregister={onclickregister} /> : ""}
-     {showlogout?<Logout onmenuclick={onmenuclick}/>:''}
+      {showlogout ? <Logout onmenuclick={onmenuclick} /> : ""}
       {showaddjob ? <Addjob onclickaddjob={onclickaddjob} /> : ""}
     </div>
   );

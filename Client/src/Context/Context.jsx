@@ -8,6 +8,11 @@ const Provider = ({ children }) => {
   const [postid, setpostid] = useState("");
   const [slidedata, setslidedata] = useState([]);
   const [currentindex, setcurrentindex] = useState("");
+  const [showlogin, setshowlogin] = useState(false);
+  const [shareData, setshareData] = useState({});
+  const onclicklogin = () => {
+    setshowlogin(!showlogin);
+  };
   const valuetoshare = {
     loggedin,
     setloggedin,
@@ -19,6 +24,11 @@ const Provider = ({ children }) => {
     setslidedata,
     currentindex,
     setcurrentindex,
+    showlogin,
+    setshowlogin,
+    onclicklogin,
+    shareData,
+    setshareData,
   };
   return (
     <AllContext.Provider value={valuetoshare}>{children}</AllContext.Provider>

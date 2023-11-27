@@ -14,7 +14,6 @@ function Register({ onclickregister }) {
   const togglepassword = () => {
     setpasswordshown(!passwordshown);
   };
-  
 
   const handleregister = () => {
     axios
@@ -27,7 +26,8 @@ function Register({ onclickregister }) {
         });
         seterror("");
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem('name',res.data.name)
+        localStorage.setItem("name", res.data.name);
+        localStorage.setItem("userid", res.data.userid);
         setTimeout(() => {
           onclickregister();
           window.location.reload();

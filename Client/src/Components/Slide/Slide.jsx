@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import style from "./Storymodal.module.css";
+import style from "./Slide.module.css";
 import like from "../../assets/liked.png";
 import unlike from "../../assets/unliked.png";
 import share from "../../assets/share.png";
@@ -13,83 +13,40 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../Login/Login";
+import { useNavigate } from "react-router-dom";
 
-function Storymodal({ onclickstory }) {
+function Slide() {
   const {
-    slidedata,
     currentindex,
     setcurrentindex,
     loggedin,
     onclicklogin,
     showlogin,
+    shareData,
+    setshareData,
   } = useContext(AllContext);
   const [slideInfo, setslideInfo] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
   const [isbookmarked, setisbookmarked] = useState(false);
 
-  const handlecloselogin = () => {
-    setshowLogin(!showLogin);
-  };
-
-  const handlenext = () => {
-    setcurrentindex((previousindex) => (previousindex + 1) % slidedata.length);
-    axios
-      .get(
-        `${import.meta.env.VITE_BACKENDURL}/slide/${
-          slidedata[currentindex]._id
-        }`
-      )
-      .then((res) => {
-        setslideInfo(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleprevious = () => {
-    setcurrentindex(
-      (prevIndex) => (prevIndex - 1 + slidedata.length) % slidedata.length
-    );
-    axios
-      .get(
-        `${import.meta.env.VITE_BACKENDURL}/slide/${
-          slidedata[currentindex]._id
-        }`
-      )
-      .then((res) => {
-        setslideInfo(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const navigate = useNavigate();
   useEffect(() => {
-    if (slidedata.length > 0) {
-      axios
-        .get(
-          `${import.meta.env.VITE_BACKENDURL}/slide/${
-            slidedata[currentindex]._id
-          }`
-        )
-        .then((res) => {
-          setslideInfo(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [slidedata, currentindex]);
-  console.log(loggedin);
+    axios
+      .get(`${import.meta.env.VITE_BACKENDURL}/slide/${shareData._id}`)
+      .then((res) => {
+        setslideInfo(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [shareData]);
 
   const handlelike = () => {
     if (loggedin) {
       axios
         .put(
-          `${import.meta.env.VITE_BACKENDURL}/slide/likes/${
-            slidedata[currentindex]._id
-          }`,
+          `${import.meta.env.VITE_BACKENDURL}/slide/likes/${shareData._id}`,
           {},
           {
             headers: {
@@ -100,9 +57,7 @@ function Storymodal({ onclickstory }) {
         .then(async (res) => {
           console.log(res.data);
           const updatedSlide = await axios.get(
-            `${import.meta.env.VITE_BACKENDURL}/slide/${
-              slidedata[currentindex]._id
-            }`
+            `${import.meta.env.VITE_BACKENDURL}/slide/${shareData._id}`
           );
           setslideInfo(updatedSlide.data);
           setIsLiked(slideInfo.likes.includes(localStorage.getItem("userid")));
@@ -115,6 +70,7 @@ function Storymodal({ onclickstory }) {
       onclicklogin();
     }
   };
+
   useEffect(() => {
     if (slideInfo && slideInfo.likes) {
       setIsLiked(slideInfo.likes.includes(localStorage.getItem("userid")));
@@ -122,40 +78,43 @@ function Storymodal({ onclickstory }) {
   }, [slideInfo]);
 
   const handleBookmark = () => {
-    axios
-      .post(
-        `${import.meta.env.VITE_BACKENDURL}/bookmarks/${
-          slidedata[currentindex]._id
-        }`,
-        {},
-        {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(async (res) => {
-        console.log(res.data);
-        const updateduser = await axios.get(
-          `${import.meta.env.VITE_BACKENDURL}/user/${localStorage.getItem(
-            "userid"
-          )}`
-        );
-        setuserInfo(updateduser.data.user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (loggedin) {
+      axios
+        .post(
+          `${import.meta.env.VITE_BACKENDURL}/bookmarks/${shareData._id}`,
+          {},
+          {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then(async (res) => {
+          console.log(res.data);
+          const updateduser = await axios.get(
+            `${import.meta.env.VITE_BACKENDURL}/user/${localStorage.getItem(
+              "userid"
+            )}`
+          );
+          setuserInfo(updateduser.data.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      onclicklogin();
+    }
   };
 
   const handleshare = () => {
     const link = `${import.meta.env.VITE_FRONTENDURL}/?slide=true&id=${
-      slidedata[currentindex]._id
+      shareData._id
     }`;
     navigator.clipboard
       .writeText(link)
       .then((res) => {
-        toast.success("Link copied to clipborad", {
+        console.log("Copied to clipborad");
+        toast.success("Link Copied to Clipborad", {
           autoClose: 2000,
           position: "top-right",
         });
@@ -167,36 +126,22 @@ function Storymodal({ onclickstory }) {
 
   useEffect(() => {
     if (userInfo && userInfo.bookmarks) {
-      setisbookmarked(userInfo.bookmarks.includes(slidedata[currentindex]._id));
+      setisbookmarked(userInfo.bookmarks.includes(shareData._id));
     }
     console.log(userInfo);
   }, [userInfo, currentindex]);
 
   return (
     <div>
-      {showlogin && <Login handlecloselogin={handlecloselogin} />}
-      <div className={style.overlay} onClick={onclickstory}>
+      {showlogin && <Login />}
+      <div className={style.overlay}>
         <ToastContainer />{" "}
-        <img
-          src={previous}
-          className={style.previous}
-          alt="previous"
-          onClick={handleprevious}
-        />
-        <img
-          src={next}
-          className={style.next}
-          alt="next"
-          onClick={handlenext}
-        />
       </div>
 
       <div className={style.modelcontent}>
         <div>
           <div className={style.story}>
-            {slidedata && slidedata.length > 0 && (
-              <img src={slidedata[currentindex].imageUrl} alt="story" />
-            )}
+            {shareData && <img src={shareData.imageUrl} alt="story" />}
 
             <div>
               <img
@@ -221,15 +166,17 @@ function Storymodal({ onclickstory }) {
                 src={close}
                 className={style.close}
                 alt="close"
-                onClick={onclickstory}
+                onClick={() => {
+                  navigate("/");
+                }}
               />
               {slideInfo && slideInfo.likes && (
                 <p className={style.likecount}>{slideInfo.likes.length}</p>
               )}
             </div>
             <div className={style.storyheading}>
-              <h2>{slidedata[currentindex].heading}</h2>
-              <h4>{slidedata[currentindex].description}</h4>
+              <h2>{shareData.heading}</h2>
+              <h4>{shareData.description}</h4>
             </div>
           </div>
         </div>
@@ -238,4 +185,4 @@ function Storymodal({ onclickstory }) {
   );
 }
 
-export default Storymodal;
+export default Slide;

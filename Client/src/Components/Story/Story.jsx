@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import style from "./Story.module.css";
+import { useLocation } from "react-router-dom";
 import AllContext from "../../Context/Context";
 import { useContext } from "react";
 import axios from "axios";
 import edit from "../../assets/edit.png";
 import Editjob from "../Editjob/Editjob";
 import Storymodal from "../Storymodal/Storymodal";
+import Slide from "../Slide/Slide";
 function Story() {
   const {
     active,
@@ -17,6 +19,8 @@ function Story() {
     setslidedata,
     currentindex,
     setcurrentindex,
+    shareData,
+    setshareData,
   } = useContext(AllContext);
   const [category, setcategory] = useState("");
   const [story, setstory] = useState("");
@@ -26,6 +30,14 @@ function Story() {
   const [UserStory, setUserStory] = useState([]);
   const [showedit, setshowedit] = useState(false);
   const [showStory, setshowStory] = useState(false);
+  const [showslide, setshowslide] = useState(true);
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
+  const id = params.get("id");
+  const slide = params.get("slide");
+
   const [allmax, setallmax] = useState({
     User: 4,
     Food: 4,
@@ -149,11 +161,27 @@ function Story() {
     console.log(slidedata);
     console.log(currentindex);
   }
-
+  useEffect(() => {
+    if (slide) {
+      axios
+        .get(`${import.meta.env.VITE_BACKENDURL}/slide/${id}`)
+        .then((res) => {
+          setslidedata(res.data);
+          setshareData(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [slide]);
+  console.log(shareData);
   return (
     <div className={style.Story}>
       {showedit ? <Editjob onclickedit={onclickedit} /> : ""}
       {showStory ? <Storymodal onclickstory={onclickstory} /> : ""}
+      {slide && <Slide />}
+
       {active === "All" ? (
         <div>
           <div>

@@ -1,6 +1,6 @@
 .Categorybar {
   display: flex;
-  gap: 6vh;
+  gap: 3vh;
   padding: 4vh;
   z-index: -3;
 }
