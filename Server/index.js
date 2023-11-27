@@ -13,7 +13,14 @@ const User = require("./Routes/User");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
-app.use(cors());
+const allowedOrigins = ["https://localhost:5173"];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT"],
+    credentials: true,
+  })
+);
 app.get("/", (req, res) => {
   res.send({ status: "success" });
 });
