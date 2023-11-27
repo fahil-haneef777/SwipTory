@@ -5,10 +5,19 @@ import { useContext } from "react";
 import axios from "axios";
 import edit from "../../assets/edit.png";
 import Editjob from "../Editjob/Editjob";
+import Storymodal from "../Storymodal/Storymodal";
 function Story() {
-  const { active, setactive, loggedin, postid, setpostid } = useContext(
-    AllContext
-  );
+  const {
+    active,
+    setactive,
+    loggedin,
+    postid,
+    setpostid,
+    slidedata,
+    setslidedata,
+    currentindex,
+    setcurrentindex,
+  } = useContext(AllContext);
   const [category, setcategory] = useState("");
   const [story, setstory] = useState("");
   const [maxstory, setmaxstory] = useState(4);
@@ -16,6 +25,7 @@ function Story() {
   const [categorydata, setcategorydata] = useState([]);
   const [UserStory, setUserStory] = useState([]);
   const [showedit, setshowedit] = useState(false);
+  const [showStory, setshowStory] = useState(false);
   const [allmax, setallmax] = useState({
     User: 4,
     Food: 4,
@@ -121,13 +131,29 @@ function Story() {
   const onclickedit = () => {
     setshowedit(!showedit);
   };
+  const onclickstory = () => {
+    setshowStory(!showStory);
+  };
   const handleEditpost = (data) => {
     setshowedit(!showedit);
     setpostid(data);
   };
-  console.log(postid);
+
+  const handleStory = (data, index) => {
+    setshowStory(!showStory);
+    setslidedata(data);
+    setcurrentindex(index);
+  };
+
+  if (slidedata) {
+    console.log(slidedata);
+    console.log(currentindex);
+  }
+
   return (
     <div className={style.Story}>
+      {showedit ? <Editjob onclickedit={onclickedit} /> : ""}
+      {showStory ? <Storymodal onclickstory={onclickstory} /> : ""}
       {active === "All" ? (
         <div>
           <div>
@@ -140,7 +166,10 @@ function Story() {
                       Array.isArray(UserStory) &&
                       UserStory.slice(0, allmax.User).map((slide, index) => (
                         <div key={index}>
-                          <div className={style.story}>
+                          <div
+                            className={style.story}
+                            onClick={() => handleStory(slide.slides, 0)}
+                          >
                             {slide.slides &&
                               slide.slides.length > 0 &&
                               slide.slides[0].imageUrl && (
@@ -204,7 +233,11 @@ function Story() {
               {allcategory.Travel.length > 0 &&
                 allcategory.Travel.slice(0, allmax.Travel).map(
                   (slide, index) => (
-                    <div className={style.story} key={index}>
+                    <div
+                      className={style.story}
+                      key={index}
+                      onClick={() => handleStory(allcategory.Travel, index)}
+                    >
                       <img src={slide.imageUrl} alt="storyimage" />
                       <div className={style.storyheading}>
                         <h2>{slide.heading}</h2>
@@ -241,7 +274,11 @@ function Story() {
             <div className={style.TopStoriesFood}>
               {allcategory.Food.length > 0 &&
                 allcategory.Food.slice(0, allmax.Food).map((Food, index) => (
-                  <div className={style.story} key={index}>
+                  <div
+                    className={style.story}
+                    key={index}
+                    onClick={() => handleStory(allcategory.Food, index)}
+                  >
                     <img src={Food.imageUrl} alt="storyimage" />
                     <div className={style.storyheading}>
                       <h2>{Food.heading}</h2>
@@ -280,7 +317,11 @@ function Story() {
               {allcategory.Health.length > 0 &&
                 allcategory.Health.slice(0, allmax.Health).map(
                   (Food, index) => (
-                    <div className={style.story} key={index}>
+                    <div
+                      className={style.story}
+                      key={index}
+                      onClick={() => handleStory(allcategory.Health, index)}
+                    >
                       <img src={Food.imageUrl} alt="storyimage" />
                       <div className={style.storyheading}>
                         <h2>{Food.heading}</h2>
@@ -318,7 +359,11 @@ function Story() {
               {allcategory.Education.length > 0 &&
                 allcategory.Education.slice(0, allmax.Education).map(
                   (Food, index) => (
-                    <div className={style.story} key={index}>
+                    <div
+                      className={style.story}
+                      key={index}
+                      onClick={() => handleStory(allcategory.Education, index)}
+                    >
                       <img src={Food.imageUrl} alt="storyimage" />
                       <div className={style.storyheading}>
                         <h2>{Food.heading}</h2>
@@ -349,14 +394,18 @@ function Story() {
               ""
             )}
           </div>
-          {showedit ? <Editjob onclickedit={onclickedit} /> : ""}
+
           <div>
             <h2 className={style.Mainheading}>Top Stories About Movies</h2>{" "}
             <div className={style.TopStoriesFood}>
               {allcategory.Movies.length > 0 &&
                 allcategory.Movies.slice(0, allmax.Movies).map(
                   (Food, index) => (
-                    <div className={style.story} key={index}>
+                    <div
+                      className={style.story}
+                      key={index}
+                      onClick={() => handleStory(allcategory.Movies, index)}
+                    >
                       <img src={Food.imageUrl} alt="storyimage" />
                       <div className={style.storyheading}>
                         <h2>{Food.heading}</h2>
@@ -395,7 +444,11 @@ function Story() {
             {Array.isArray(categorydata) &&
               categorydata.length > 0 &&
               categorydata.slice(0, maxstory).map((slide, index) => (
-                <div className={style.story} key={index}>
+                <div
+                  className={style.story}
+                  key={index}
+                  onClick={() => handleStory(categorydata, index)}
+                >
                   <img src={slide.imageUrl} alt="storyimage" />
                   <div className={style.storyheading}>
                     <h2>{slide.heading}</h2>

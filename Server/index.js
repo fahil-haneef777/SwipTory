@@ -4,12 +4,12 @@ const env = require("dotenv").config();
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 const app = express();
-const User = require("./models/users");
+const Usermodal = require("./models/users");
 const authRoutes = require("./Routes/auth");
-const Slide = require("./models/Slide");
-const Post = require("./models/Post");
+const Slidemodal = require("./models/Slide");
+const Postmodal = require("./models/Post");
 const PostRoutes = require("./Routes/Post");
-
+const User = require("./Routes/User");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 });
 app.use(authRoutes);
 app.use(PostRoutes);
+app.use(User);
 
 app.listen(process.env.PORT, () => {
   mongoose

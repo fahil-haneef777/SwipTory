@@ -6,6 +6,8 @@ const Provider = ({ children }) => {
   const [loggedin, setloggedin] = useState(localStorage.getItem("token"));
   const [active, setactive] = useState("All");
   const [postid, setpostid] = useState("");
+  const [slidedata, setslidedata] = useState([]);
+  const [currentindex, setcurrentindex] = useState("");
   const valuetoshare = {
     loggedin,
     setloggedin,
@@ -13,6 +15,10 @@ const Provider = ({ children }) => {
     setactive,
     postid,
     setpostid,
+    slidedata,
+    setslidedata,
+    currentindex,
+    setcurrentindex,
   };
   return (
     <AllContext.Provider value={valuetoshare}>{children}</AllContext.Provider>
