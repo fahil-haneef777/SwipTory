@@ -13,7 +13,7 @@ const User = require("./Routes/User");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
-const allowedOrigins = ["https://localhost:5173"];
+const allowedOrigins = ["https://swip-tory-frontend.vercel.app"];
 app.use(
   cors({
     origin: allowedOrigins,
