@@ -3,7 +3,7 @@ import style from "./Editjob.module.css";
 import closeicon from "../../assets/closeicon.png";
 import axios from "axios";
 import AllContext from "../../Context/Context";
-import { set } from "mongoose";
+
 
 function Editjob({ onclickedit }) {
   const { postid } = useContext(AllContext);
