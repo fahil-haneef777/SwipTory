@@ -8,7 +8,13 @@ import edit from "../../assets/edit.png";
 import Editjob from "../Editjob/Editjob";
 import Storymodal from "../Storymodal/Storymodal";
 import Slide from "../Slide/Slide";
+import { useMediaQuery } from "react-responsive";
 function Story() {
+  const isMobile = useMediaQuery({
+    minWidth: 300,
+    maxWidth: 600,
+  });
+
   const {
     active,
     setactive,
@@ -21,13 +27,15 @@ function Story() {
     setcurrentindex,
     shareData,
     setshareData,
+    UserStory,
+    setUserStory,
   } = useContext(AllContext);
   const [category, setcategory] = useState("");
   const [story, setstory] = useState("");
   const [maxstory, setmaxstory] = useState(4);
   const [seemore, setseemore] = useState(false);
   const [categorydata, setcategorydata] = useState([]);
-  const [UserStory, setUserStory] = useState([]);
+
   const [showedit, setshowedit] = useState(false);
   const [showStory, setshowStory] = useState(false);
   const [showslide, setshowslide] = useState(true);
@@ -185,7 +193,7 @@ function Story() {
       {active === "All" ? (
         <div>
           <div>
-            {UserStory.length > 0 && loggedin && (
+            {UserStory.length > 0 && loggedin && !isMobile && (
               <div>
                 <div>
                   <h2 className={style.YourStory}>Your Stories</h2>{" "}

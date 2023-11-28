@@ -13,8 +13,14 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../Login/Login";
+import { useMediaQuery } from "react-responsive";
 
 function Storymodal({ onclickstory }) {
+  const isMobile = useMediaQuery({
+    minWidth: 300,
+    maxWidth: 600,
+  });
+
   const {
     slidedata,
     currentindex,
@@ -160,8 +166,9 @@ function Storymodal({ onclickstory }) {
       .writeText(link)
       .then((res) => {
         toast.success("Link copied to clipborad", {
-          autoClose: 2000,
-          position: "top-right",
+          autoClose: 1000,
+          position: "top-left",
+          pauseOnHover: false,
         });
       })
       .catch((err) => {
@@ -180,7 +187,6 @@ function Storymodal({ onclickstory }) {
     <div>
       {showlogin && <Login handlecloselogin={handlecloselogin} />}
       <div className={style.overlay}>
-        <ToastContainer />{" "}
         <img
           src={previous}
           className={style.previous}
@@ -196,10 +202,19 @@ function Storymodal({ onclickstory }) {
       </div>
 
       <div className={style.modelcontent}>
+        <ToastContainer />{" "}
         <div>
           <div className={style.story}>
             {slidedata && slidedata.length > 0 && (
               <img src={slidedata[currentindex].imageUrl} alt="story" />
+            )}
+            {isMobile ? (
+              <>
+               <div className={style.right} onClick={handlenext}></div>
+               <div className={style.left}  onClick={handleprevious}></div>
+              </>
+            ) : (
+              ""
             )}
 
             <div>

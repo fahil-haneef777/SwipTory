@@ -15,6 +15,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 const allowedOrigins = ["https://swip-tory-frontend.vercel.app"];
+
 app.use(
   cors({
     origin: allowedOrigins,
@@ -22,6 +23,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.get("/", (req, res) => {
   res.send({ status: "success" });
 });

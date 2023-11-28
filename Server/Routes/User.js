@@ -106,4 +106,14 @@ Router.get("/showbookmarks", requireAuth, async (req, res) => {
   }
 });
 
+Router.get("/allslide", async (req, res) => {
+  try {
+    const allslide = await Slide.find();
+    res.status(200).send(allslide);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = Router;

@@ -4,6 +4,8 @@ import style from "./Bookmark.module.css";
 import AllContext from "../../Context/Context";
 import axios from "axios";
 import Storymodal from "../../Components/Storymodal/Storymodal";
+import { useMediaQuery } from "react-responsive";
+import MobileNavbar from "../../MobileComponents/MobileNavbar/MobileNavbar";
 function Bookmark() {
   const [showStory, setshowStory] = useState(false);
   const [bookData, setbookData] = useState([]);
@@ -23,11 +25,11 @@ function Bookmark() {
   } = useContext(AllContext);
 
   const handleseemore = () => {
-    setmaxstory(Infinity);
+    setallmax(Infinity);
   };
 
   const handleseeless = () => {
-    setmaxstory(4);
+    setallmax(4);
   };
   const handleStory = (data, index) => {
     setshowStory(!showStory);
@@ -38,17 +40,14 @@ function Bookmark() {
   const onclickstory = () => {
     setshowStory(!showStory);
   };
-  
+
   useEffect(() => {
     axios
-      .get(
-        `${import.meta.env.VITE_BACKENDURL}/showbookmarks`,
-        {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .get(`${import.meta.env.VITE_BACKENDURL}/showbookmarks`, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setbookData(res.data.bookmarks);
@@ -58,10 +57,15 @@ function Bookmark() {
       });
   }, []);
 
-  console.log(bookData)
+  console.log(bookData);
+  const isMobile = useMediaQuery({
+    minWidth: 300,
+    maxWidth: 600,
+  });
+
   return (
     <>
-      <TopNavbar />
+    {isMobile?<MobileNavbar/>:<TopNavbar />}
       {showStory ? <Storymodal onclickstory={onclickstory} /> : ""}
       <div className={style.Story}>
         <div>
