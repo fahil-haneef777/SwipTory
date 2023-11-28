@@ -54,6 +54,11 @@ function Mobileyourstory() {
   const onclickedit = () => {
     setshowedit(!showedit);
   };
+
+  const handleEditpost = (data) => {
+    setshowedit(!showedit);
+    setpostid(data);
+  };
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKENDURL}/filter/All`)
