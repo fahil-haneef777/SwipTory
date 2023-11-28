@@ -4,7 +4,6 @@ import { useState, useContext } from "react";
 import closeicon from "../../assets/closeicon.png";
 import eyeicon from "../../assets/eyeicon.svg";
 import axios from "axios";
-import BASEURL from "../../Constants/Constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function Register({ onclickregister }) {
