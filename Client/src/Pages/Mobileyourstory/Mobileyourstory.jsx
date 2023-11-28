@@ -7,11 +7,14 @@ import Storymodal from "../../Components/Storymodal/Storymodal";
 import { useMediaQuery } from "react-responsive";
 import MobileNavbar from "../../MobileComponents/MobileNavbar/MobileNavbar";
 import edit from "../../assets/edit.png";
+import Editjob from "../../Components/Editjob/Editjob";
+
 function Mobileyourstory() {
   const [showStory, setshowStory] = useState(false);
   const [bookData, setbookData] = useState([]);
   const [allmax, setallmax] = useState(4);
   const [story, setstory] = useState([]);
+  const [showedit, setshowedit] = useState(false);
   const {
     active,
     setactive,
@@ -48,6 +51,9 @@ function Mobileyourstory() {
   const onclickstory = () => {
     setshowStory(!showStory);
   };
+  const onclickedit = () => {
+    setshowedit(!showedit);
+  };
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKENDURL}/filter/All`)
@@ -76,9 +82,9 @@ function Mobileyourstory() {
     }
   }, [story]);
 
-
   return (
     <>
+      {showedit ? <Editjob onclickedit={onclickedit} /> : ""}
       {isMobile ? <MobileNavbar /> : <TopNavbar />}
       {showStory ? <Storymodal onclickstory={onclickstory} /> : ""}
       <div className={style.Story}>
