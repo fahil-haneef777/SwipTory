@@ -175,7 +175,7 @@ function Storymodal({ onclickstory }) {
   return (
     <div>
       {showlogin && <Login handlecloselogin={handlecloselogin} />}
-      <div className={style.overlay} onClick={onclickstory}>
+      <div className={style.overlay} >
         <ToastContainer />{" "}
         <img
           src={previous}
