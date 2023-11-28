@@ -3,7 +3,8 @@ import style from "./Editjob.module.css";
 import closeicon from "../../assets/closeicon.png";
 import axios from "axios";
 import AllContext from "../../Context/Context";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Editjob({ onclickedit }) {
   const { postid } = useContext(AllContext);
@@ -52,8 +53,15 @@ function Editjob({ onclickedit }) {
       )
       .then((res) => {
         console.log(res.data);
-        onclickedit();
-        window.location.reload()
+        toast.success("Edited Successfully", {
+          autoClose: 2000,
+          position: "top-right",
+        });
+
+        setTimeout(() => {
+          onclickedit();
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -114,6 +122,7 @@ function Editjob({ onclickedit }) {
   }, []);
   return (
     <div>
+      <ToastContainer />
       <div className={style.overlay} onClick={onclickedit}></div>
       <div className={style.modelcontent}>
         <div className={style.slidecontainer}>

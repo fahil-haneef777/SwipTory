@@ -45,9 +45,9 @@ function Addjob({ onclickaddjob }) {
         }
       )
       .then((res) => {
-        toast.success("Logedin Successfully", {
+        toast.success("Added Successfully", {
           autoClose: 2000,
-          position: "top-center",
+          position: "top-right",
         });
 
         setTimeout(() => {
