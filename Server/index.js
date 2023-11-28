@@ -10,6 +10,7 @@ const Slidemodal = require("./models/Slide");
 const Postmodal = require("./models/Post");
 const PostRoutes = require("./Routes/Post");
 const User = require("./Routes/User");
+
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 

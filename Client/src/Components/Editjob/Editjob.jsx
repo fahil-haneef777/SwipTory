@@ -42,7 +42,7 @@ function Editjob({ onclickedit }) {
 
     axios
       .put(
-        `http://localhost:3000/edit/${postid}`,
+        `${import.meta.env.VITE_BACKENDURL}/edit/${postid}`,
         { slides: slides },
         {
           headers: {
@@ -103,7 +103,7 @@ function Editjob({ onclickedit }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/post/${postid}`)
+      .get(`${import.meta.env.VITE_BACKENDURL}/post/${postid}`)
       .then((res) => {
         console.log(res.data.post.slides);
         setslides(res.data.post.slides);

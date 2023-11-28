@@ -18,7 +18,7 @@ function Login() {
   };
   const handlesubmit = () => {
     axios
-      .post(`${BASEURL}/login`, user)
+      .post(`${import.meta.env.VITE_BACKENDURL}/login`, user)
       .then((res) => {
         if (res.data.token) {
           toast.success("Logedin Successfully", {

@@ -17,7 +17,7 @@ function Register({ onclickregister }) {
 
   const handleregister = () => {
     axios
-      .post(`${BASEURL}/register`, user)
+      .post(`${import.meta.env.VITE_BACKENDURL}/register`, user)
       .then((res) => {
         console.log(res.data);
         toast.success("Registered Successfully", {

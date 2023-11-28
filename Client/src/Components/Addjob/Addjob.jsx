@@ -34,7 +34,7 @@ function Addjob({ onclickaddjob }) {
 
     axios
       .post(
-        "http://localhost:3000/add",
+        `${import.meta.env.VITE_BACKENDURL}/add`,
         { slides: slides },
         {
           headers: {

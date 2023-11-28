@@ -63,7 +63,7 @@ function Story() {
   console.log(active);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/filter/${active}`)
+      .get(`${import.meta.env.VITE_BACKENDURL}/filter/${active}`)
       .then((res) => {
         console.log(res.data.posts);
         console.log(res.data);
