@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "./Addjob.module.css";
 import closeicon from "../../assets/closeicon.png";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Addjob({ onclickaddjob }) {
   const [slides, setslides] = useState([
@@ -43,6 +45,15 @@ function Addjob({ onclickaddjob }) {
         }
       )
       .then((res) => {
+        toast.success("Logedin Successfully", {
+          autoClose: 2000,
+          position: "top-center",
+        });
+
+        setTimeout(() => {
+          onclickaddjob();
+          window.location.reload();
+        }, 2000);
         console.log(res.data);
       })
       .catch((err) => {
@@ -93,6 +104,7 @@ function Addjob({ onclickaddjob }) {
 
   return (
     <div>
+      <ToastContainer />
       <div className={style.overlay} onClick={onclickaddjob}></div>
       <div className={style.modelcontent}>
         <div className={style.slidecontainer}>
