@@ -122,30 +122,34 @@ function Storymodal({ onclickstory }) {
   }, [slideInfo]);
 
   const handleBookmark = () => {
-    axios
-      .post(
-        `${import.meta.env.VITE_BACKENDURL}/bookmarks/${
-          slidedata[currentindex]._id
-        }`,
-        {},
-        {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(async (res) => {
-        console.log(res.data);
-        const updateduser = await axios.get(
-          `${import.meta.env.VITE_BACKENDURL}/user/${localStorage.getItem(
-            "userid"
-          )}`
-        );
-        setuserInfo(updateduser.data.user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (loggedin) {
+      axios
+        .post(
+          `${import.meta.env.VITE_BACKENDURL}/bookmarks/${
+            slidedata[currentindex]._id
+          }`,
+          {},
+          {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then(async (res) => {
+          console.log(res.data);
+          const updateduser = await axios.get(
+            `${import.meta.env.VITE_BACKENDURL}/user/${localStorage.getItem(
+              "userid"
+            )}`
+          );
+          setuserInfo(updateduser.data.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      onclicklogin();
+    }
   };
 
   const handleshare = () => {
@@ -175,7 +179,7 @@ function Storymodal({ onclickstory }) {
   return (
     <div>
       {showlogin && <Login handlecloselogin={handlecloselogin} />}
-      <div className={style.overlay} >
+      <div className={style.overlay}>
         <ToastContainer />{" "}
         <img
           src={previous}
