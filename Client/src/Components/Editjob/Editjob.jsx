@@ -13,11 +13,7 @@ function Editjob({ onclickedit }) {
     { heading: "", description: "", imageUrl: "", category: "" },
     { heading: "", description: "", imageUrl: "", category: "" },
   ]);
-  const [posts, setposts] = useState([
-    { heading: "", description: "", imageUrl: "", category: "" },
-    { heading: "", description: "", imageUrl: "", category: "" },
-    { heading: "", description: "", imageUrl: "", category: "" },
-  ]);
+ 
   const [activeslide, setactiveslide] = useState(1);
   const [error, seterror] = useState("");
 
@@ -100,6 +96,20 @@ function Editjob({ onclickedit }) {
     const updatedSlide = [...slides];
     updatedSlide.splice(index, 1);
     setslides(updatedSlide);
+
+    
+    if (activeslide > 1 && activeslide !== slides.length) {
+    
+      setactiveslide(activeslide - 1); 
+    } else if (activeslide === slides.length) {
+     
+      setactiveslide(activeslide - 1); 
+    } else {
+      
+      setactiveslide(1); 
+    }
+  };
+
   };
   useEffect(() => {
     if (slides.length === 6) {
