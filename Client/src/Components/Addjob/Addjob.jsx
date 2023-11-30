@@ -229,7 +229,7 @@ function Addjob({ onclickaddjob }) {
           <button className={style.postbutton} onClick={handlePostData}>
             Post
           </button>
-          <p className={style.errormessage}>{error} hello</p>
+          <p className={style.errormessage}>{error}</p>
         </div>
       </div>
     </div>
