@@ -264,6 +264,46 @@ function Story() {
             )}
           </div>
           <div>
+            <h2 className={style.Mainheading}>Top Stories About Food</h2>{" "}
+            <div className={style.TopStoriesFood}>
+              {allcategory.Food.length > 0 &&
+                allcategory.Food.slice(0, allmax.Food).map((Food, index) => (
+                  <div
+                    className={style.story}
+                    key={index}
+                    onClick={() => handleStory(allcategory.Food, index)}
+                  >
+                    <img src={Food.imageUrl} alt="storyimage" />
+                    <div className={style.storyheading}>
+                      <h2>{Food.heading}</h2>
+                      <h4>{Food.description}</h4>
+                    </div>
+                  </div>
+                ))}
+              {allcategory.Food.length === 0 && (
+                <div className={style.nostories}>No Stories Available </div>
+              )}
+            </div>
+            {(allmax.Food === 4) & (allcategory.Food.length > 4) ? (
+              <button
+                className={style.seemorebutton}
+                onClick={() => handleallseemore("Food")}
+              >
+                See more
+              </button>
+            ) : allmax.Food > 4 ? (
+              <button
+                className={style.seemorebutton}
+                onClick={() => handleallseeless("Food")}
+              >
+                See less
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div>
             <h2 className={style.Mainheading}>Top Stories About Travel</h2>{" "}
             <div className={style.TopStoriesFood}>
               {allcategory.Travel.length > 0 &&
@@ -297,46 +337,6 @@ function Story() {
               <button
                 className={style.seemorebutton}
                 onClick={() => handleallseeless("Travel")}
-              >
-                See less
-              </button>
-            ) : (
-              ""
-            )}
-          </div>
-
-          <div>
-            <h2 className={style.Mainheading}>Top Stories About Food</h2>{" "}
-            <div className={style.TopStoriesFood}>
-              {allcategory.Food.length > 0 &&
-                allcategory.Food.slice(0, allmax.Food).map((Food, index) => (
-                  <div
-                    className={style.story}
-                    key={index}
-                    onClick={() => handleStory(allcategory.Food, index)}
-                  >
-                    <img src={Food.imageUrl} alt="storyimage" />
-                    <div className={style.storyheading}>
-                      <h2>{Food.heading}</h2>
-                      <h4>{Food.description}</h4>
-                    </div>
-                  </div>
-                ))}
-              {allcategory.Food.length === 0 && (
-                <div className={style.nostories}>No Stories Available </div>
-              )}
-            </div>
-            {(allmax.Food === 4) & (allcategory.Food.length > 4) ? (
-              <button
-                className={style.seemorebutton}
-                onClick={() => handleallseemore("Food")}
-              >
-                See more
-              </button>
-            ) : allmax.Food > 4 ? (
-              <button
-                className={style.seemorebutton}
-                onClick={() => handleallseeless("Food")}
               >
                 See less
               </button>
