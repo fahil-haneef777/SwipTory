@@ -125,7 +125,7 @@ function Storymodal({ onclickstory }) {
     if (slideInfo && slideInfo.likes) {
       setIsLiked(slideInfo.likes.includes(localStorage.getItem("userid")));
     }
-  }, [slideInfo]);
+  }, [slideInfo,currentindex]);
 
   const handleBookmark = () => {
     if (loggedin) {
