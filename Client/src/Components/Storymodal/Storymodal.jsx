@@ -125,7 +125,7 @@ function Storymodal({ onclickstory }) {
     if (slideInfo && slideInfo.likes) {
       setIsLiked(slideInfo.likes.includes(localStorage.getItem("userid")));
     }
-  }, [slideInfo,currentindex]);
+  }, [slideInfo, currentindex]);
 
   const handleBookmark = () => {
     if (loggedin) {
@@ -149,6 +149,9 @@ function Storymodal({ onclickstory }) {
             )}`
           );
           setuserInfo(updateduser.data.user);
+          setisbookmarked(
+            userInfo.bookmarks.includes(slidedata[currentindex]._id)
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -210,8 +213,8 @@ function Storymodal({ onclickstory }) {
             )}
             {isMobile ? (
               <>
-               <div className={style.right} onClick={handlenext}></div>
-               <div className={style.left}  onClick={handleprevious}></div>
+                <div className={style.right} onClick={handlenext}></div>
+                <div className={style.left} onClick={handleprevious}></div>
               </>
             ) : (
               ""
