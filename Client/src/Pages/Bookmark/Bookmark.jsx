@@ -73,7 +73,7 @@ function Bookmark() {
             <h2 className={style.Mainheading}>Your Bookmarks</h2>{" "}
             <div className={style.TopStoriesFood}>
               {bookData.length > 0 &&
-                bookData.slice(0, allmax.Travel).map((slide, index) => (
+                bookData.slice(0, allmax).map((slide, index) => (
                   <div
                     className={style.story}
                     key={index}
