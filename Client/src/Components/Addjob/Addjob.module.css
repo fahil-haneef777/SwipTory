@@ -294,6 +294,7 @@ height: 60vh;
     cursor: pointer;
     transition: 0.2s;
     text-align: center;
+    position: relative;
   }
   .slidebox:hover {
     scale: 1.05;
@@ -425,13 +426,14 @@ height: 60vh;
   .closeicon {
     height: 3vh;
     width: 3vh;
-    position: absolute;
-    left: 5vh;
+    position: relative;
+    left: 8vh;
     bottom: 33vh;
     transition: 0.2s;
     background-color: rgb(255, 0, 0);
     border-radius: 100px;
     padding: 0;
+  
   }
   .slidecontainer > div:last-child .closeicon {
     bottom: 3vh; /* Adjust this value to position the closeicon correctly */

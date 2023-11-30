@@ -59,7 +59,7 @@ function Mobilelogout({ onmenuclick }) {
 
             <button
               className={style.Bookmarkbutton}
-              onClick={() => navigate("bookmark")}
+              onClick={() => navigate("/bookmark")}
             >
               <img src={bookmarks} alt="bookmark" />
               <p>Bookmarks</p>
