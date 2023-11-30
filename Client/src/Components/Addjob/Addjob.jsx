@@ -93,6 +93,14 @@ function Addjob({ onclickaddjob }) {
     const updatedSlide = [...slides];
     updatedSlide.splice(index, 1);
     setslides(updatedSlide);
+
+    if (activeslide > 1 && activeslide !== slides.length) {
+      setactiveslide(activeslide - 1);
+    } else if (activeslide === slides.length) {
+      setactiveslide(activeslide - 1);
+    } else {
+      setactiveslide(1);
+    }
   };
   useEffect(() => {
     if (slides.length === 6) {
